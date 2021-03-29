@@ -28,3 +28,12 @@ def continent():
     GroupbyLocation=Whole_Data.groupby('location').last()
     return px.bar(data_frame=GroupbyLocation.groupby('continent',as_index=False)[['total_cases']].sum(),x='continent',y='total_cases',color='continent')
 st.plotly_chart(continent())
+
+@st.cache
+def world_map():
+    GroupbyLocation=Whole_Data.groupby('location').last()
+    GroupbyLocation=GroupbyLocation.reset_index()
+    return px.scatter_geo(data_frame=GroupbyLocation[~GroupbyLocation['continent'].isnull()].fillna(0),locations='iso_code',color='continent',hover_name='location',size='total_cases')
+
+st.plotly_chart(world_map())
+
