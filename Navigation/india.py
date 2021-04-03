@@ -4,7 +4,7 @@ import plotly.express as px
 
 
 def test():
-    st.set_page_config(layout="wide")
+    #st.set_page_config(layout="wide")
     st.title("India Covid Cases")
 
     India=pd.read_csv("https://api.covid19india.org/csv/latest/state_wise.csv")
