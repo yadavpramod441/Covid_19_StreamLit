@@ -13,17 +13,17 @@ def test():
     Whole_Data=pd.read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
     Country_Vaccine=pd.read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/locations.csv")
     GroupbyLocation=Whole_Data.groupby('location').last()
-
-
+    Countries=Whole_Data.groupby('location',as_index=False).last()['location']
+    
 
     ## Division of page
     col1=st.sidebar
     col2,col3=st.beta_columns((3,1))
 
 
-    Select_Country=col1.selectbox("Select Country",Whole_Data.groupby('location',as_index=False).last()['location'],index=211)
+    Select_Country=col1.selectbox("Select Country",Whole_Data.groupby('location',as_index=False).last()['location'],index=int(Countries[Countries=='World'].index[0]))
 
-    col2.text("In {} Stringency index is : {}".format(Select_Country,Whole_Data[Whole_Data['location']==Select_Country]['stringency_index'].max()))
+    #col2.text("In {} Stringency index is : {}".format(Select_Country,Whole_Data[Whole_Data['location']==Select_Country]['stringency_index'].max()))
 
     @st.cache
     def new_cases():
@@ -59,6 +59,7 @@ def test():
     col3.plotly_chart(continents())
 
     Select_Continent=st.selectbox("Select Continent",list(Whole_Data['continent'].dropna().unique()),index=0)
+    
     @st.cache
     def continents_country():
         GroupbyLocation=Whole_Data.groupby('location').last().reset_index()
@@ -67,7 +68,7 @@ def test():
     st.plotly_chart(continents_country())
 
 
-    Select_Vaccine=col1.selectbox("Select Vaccine",pd.melt(Country_Vaccine['vaccines'].str.split(',',n = 6,expand=True),id_vars=0)[0].unique())
+    #Select_Vaccine=col1.selectbox("Select Vaccine",pd.melt(Country_Vaccine['vaccines'].str.split(',',n = 6,expand=True),id_vars=0)[0].unique())
 
     @st.cache
     def Median_age():
