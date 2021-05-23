@@ -9,6 +9,8 @@ def test():
     st.write("4. Covid Resource Database: https://linktr.ee/Okayival ")
     st.write("5. Covid Fight Club: https://covidfightclub.org ")
     st.write("6. Twitter Covid Fighter : https://twitter.com/CovidFightersI1 ")
+    st.write("7. Vaccine Availablity Check: https://www.cowin.gov.in/home ")
+    
     
     
     
