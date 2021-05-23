@@ -38,7 +38,10 @@ def test():
     ## Need to check this
     @st.cache
     def new_test():
-        return px.bar(data_frame=Whole_Data[~Whole_Data['continent'].isnull()].groupby('date')['new_tests'].sum().reset_index(),x='date',y='new_tests',title="New Tests",labels={'new_tests':"New Tests","date":"Date"},color_discrete_sequence=["green"])
+        if Select_Country=='World':
+            return px.bar(data_frame=Whole_Data.groupby(by='date',as_index=False)['new_tests'].sum(),x='date',y='new_tests',title="New Tests",labels={'new_tests':"New Tests","date":"Date"},color_discrete_sequence=["green"])
+        else:
+            return px.bar(data_frame=Whole_Data[Whole_Data['location']==Select_Country],x='date',y='new_tests',title="New Tests",labels={'new_tests':"New Tests","date":"Date"},color_discrete_sequence=["green"])
     col2.plotly_chart(new_test())
 
     @st.cache
